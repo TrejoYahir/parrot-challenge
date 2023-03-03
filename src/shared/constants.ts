@@ -1,0 +1,1 @@
+export const AUTH_ERROR_CODE = 'users.InvalidToken';
