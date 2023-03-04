@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '../../features/auth/authSlice'
 import { useLoginMutation } from '../../features/auth/authApiSlice'
+import Spinner from '../../shared/Spinner'
 import styles from './login.module.css'
 
 const Login = () => {
   const userRef = useRef<HTMLInputElement>(null)
-  const errorRef = useRef<HTMLInputElement>(null)
-  const [user, setUser] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
 
   const [login, { isLoading }] = useLoginMutation()
@@ -23,41 +23,47 @@ const Login = () => {
   }, [])
 
   useEffect(() => {
-    setError('')
-  }, [user, password])
+    setError(null)
+  }, [username, password])
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
 
     try {
-      const authData = await login({ user, password }).unwrap()
+      const authData = await login({ username, password }).unwrap()
       console.log('authData', authData);
       dispatch(setCredentials(authData))
-      setUser('')
+      setUsername('')
       setPassword('')
       navigate('/home')
     } catch (err: any) {
-      console.log('login error', error)
-      /**
-       * TODO: Error handling
-       * **/
-      if (errorRef?.current) {
-        errorRef.current.focus()
+      console.log('login error', err)
+      if (err?.status === 401) {
+        setError('Usuario o contraseña incorrecto, por favor revisa tus credenciales')
+      } else if (err?.status === 500) {
+        setError('Ocurrió un error en el servidor, por favor intenta de nuevo')
+      } else {
+        setError('Ocurrió un error, por favor intenta de nuevo')
       }
     }
   }
 
-  const handleUserInput = (e: ChangeEvent<HTMLInputElement>) => setUser(e.target.value)
+  const handleUserInput = (e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)
 
   const handlePasswordInput = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
   return (
     <section className={styles.loginPage}>
-      <form onSubmit={handleSubmit}>
+      <img src="https://pos.parrotsoftware.io/hubfs/parrot_connect_logo.svg" alt="ParrotConnectLogo" className={styles.loginLogo} />
+      <form onSubmit={handleSubmit} className={styles.loginForm}>
         <label htmlFor="username">Usuario: </label>
-        <input type="text" id="username" onChange={handleUserInput} value={user} ref={userRef} required />
+        <input type="text" id="username" onChange={handleUserInput} value={username} ref={userRef} required />
         <label htmlFor="password">Contraseña: </label>
         <input type="password" id="password" onChange={handlePasswordInput} value={password} required />
-        <button>Iniciar sesión</button>
+        { error && <span className={styles.loginFormError}>{error}</span> }
+        <button disabled={isLoading}>
+          <span>Iniciar sesión</span>
+          <Spinner isLoading={isLoading} size={25} color="white" style={{ top:'8px', right:'10px' }} />
+        </button>
       </form>
     </section>
   )

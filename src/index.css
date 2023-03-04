@@ -1,1 +1,21 @@
 @import 'normalize.css';
+
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+  font-family: 'Roboto', sans-serif;
+}
+
+:root {
+  --color-primary: #f04e4a;
+  --color-secondary: #47465f;
+  --color-dark: #000;
+  --color-light: #fff;
+  --color-error: #c42b29;
+}
