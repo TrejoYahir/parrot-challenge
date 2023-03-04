@@ -1,6 +1,6 @@
 import { BaseQueryApi, fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react'
 import { setCredentials, logOut } from '../../features/auth/authSlice'
-import { AUTH_ERROR_CODE } from '../../shared/constants'
+import { TOKEN_ERROR_CODE } from '../../shared/constants'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_URL,
@@ -21,7 +21,7 @@ const baseQueryWithRefresh = async (args: string, api: BaseQueryApi, extraOption
   console.log('request result', result)
 
   // Refresh token if it's expired and retry request
-  if (result?.error?.status === 401 && result?.error?.data?.errors[0]?.code === AUTH_ERROR_CODE) {
+  if (result?.error?.status === 401 && result?.error?.data?.errors[0]?.code === TOKEN_ERROR_CODE) {
     const newToken = await baseQuery('/api/auth/token/refresh', api, extraOptions)
     if (newToken) {
       api.dispatch(setCredentials(newToken))
