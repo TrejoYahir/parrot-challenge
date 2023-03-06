@@ -14,7 +14,10 @@ const Store = () => {
     isLoading,
     isSuccess,
     isError,
-  } = useGetProductsQuery(selectedStore?.uuid || '', { skip: !selectedStore })
+  } = useGetProductsQuery(selectedStore?.uuid || '', {
+    skip: !selectedStore,
+    pollingInterval: 1000,
+  })
 
   return (
     <section className={styles.storePage}>
