@@ -1,0 +1,51 @@
+.parrotHeader {
+  background-color: var(--color-light);
+  padding: 1em;
+  color: var(--color-primary);
+  width: 100%;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1em;
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.headerLogo {
+  width: 200px;
+  max-width: 100%;
+}
+
+.headerSelector {
+  border: 2px solid var(--color-dark);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--color-dark);
+  padding: .5em 1em;
+  cursor: pointer;
+  outline: 0 none;
+  transition: 100ms background-color ease-in-out, 100ms color ease-in-out;
+  max-width: 100%;
+}
+
+.headerSelector:focus, .headerSelector:active {
+  outline: 1px solid var(--color-dark);
+}
+
+.headerSelector:hover, .headerSelector:focus, .headerSelector:active {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+}
+
+@media screen and (max-width: 480px) {
+  .headerContent {
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+}

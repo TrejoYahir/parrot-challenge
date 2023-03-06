@@ -7,7 +7,6 @@ const baseQuery = fetchBaseQuery({
   credentials: 'same-origin',
   prepareHeaders:(headers, api: any) => {
     const accessToken = api.getState().auth.accessToken
-    console.log('base url', import.meta.env.VITE_API_URL)
     if (accessToken) {
       headers.set('Authorization', `Bearer ${accessToken}`)
     }
@@ -16,9 +15,7 @@ const baseQuery = fetchBaseQuery({
 })
 
 const baseQueryWithRefresh = async (args: string, api: BaseQueryApi, extraOptions: { shout?: boolean }) => {
-  console.log('sending request to', args)
   let result: any = await baseQuery(args, api,extraOptions)
-  console.log('request result', result)
 
   // Refresh token if it's expired and retry request
   if (result?.error?.status === 401 && result?.error?.data?.errors[0]?.code === TOKEN_ERROR_CODE) {
@@ -36,5 +33,6 @@ const baseQueryWithRefresh = async (args: string, api: BaseQueryApi, extraOption
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithRefresh,
+  tagTypes: ['products'],
   endpoints: builder => ({})
 })

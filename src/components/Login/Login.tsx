@@ -5,6 +5,9 @@ import { setCredentials } from '../../features/auth/authSlice'
 import { useLoginMutation } from '../../features/auth/authApiSlice'
 import Spinner from '../../shared/Spinner'
 import styles from './login.module.css'
+import userApiSlice from '../../features/user/userApiSlice'
+import { setUser } from '../../features/user/userSlice'
+import { setSelectedStoreId, setStores } from '../../features/store/storeSlice'
 
 const Login = () => {
   const userRef = useRef<HTMLInputElement>(null)
@@ -14,7 +17,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   const [login, { isLoading }] = useLoginMutation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<any>()
 
   useEffect(() => {
     if (userRef?.current) {
@@ -31,7 +34,6 @@ const Login = () => {
 
     try {
       const authData = await login({ username, password }).unwrap()
-      console.log('authData', authData);
       dispatch(setCredentials(authData))
       setUsername('')
       setPassword('')

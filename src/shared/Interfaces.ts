@@ -1,47 +1,55 @@
-export interface Credentials {
+import { ChangeEvent } from "react"
+
+export interface ICredentials {
   accessToken: string | null
   refreshToken: string | null
 }
 
-export interface Authentication {
+export interface IAuthentication {
   username: string
   password: string
 }
 
-export interface SpinnerProps {
+export interface ISpinnerProps {
   color?: string
   isLoading: boolean
   size?: number
   [x:string]: any
 }
 
-export interface Store {
+export interface IStore {
   uuid: string
   name: string
   availabilityState: string
-  providers: Provider[]
+  providers: IProvider[]
   secret: string
   legacyId: string | null
   organizationUuid: string
+  config: IStoreConfig
 }
 
-export interface Provider {
+export interface IStoreConfig {
+  brandColor: string
   [x:string]: any
 }
 
-export interface User {
-  uuid: string
-  email: string
-  username: string
-  stores: Store[]
+export interface IProvider {
+  [x:string]: any
 }
 
-export interface UserResponse {
+export interface IUser {
+  uuid: string | null
+  email: string | null
+  username: string | null
+  stores: IStore[]
+}
+
+export interface IUserResponse {
   status: string
-  result: User
+  result: IUser
 } 
 
-export interface Product {
+export interface IProduct {
   uuid: string
   name: string
   description: string
@@ -50,18 +58,52 @@ export interface Product {
   price: string
   alcoholCount: number
   soldAlone: boolean
-  availabilityState: string
+  availability: string
   providerAvailability: string | null
-  category: Category
+  category: ICategory
 } 
 
-export interface Category {
+export interface ICategory {
   uuid: string,
   name: string,
   sortPosition: number
 }
 
-export interface ProductResponse {
+export interface IProductResponse {
   status: string
-  results: Product[]
+  results: IProduct[]
 } 
+export interface IStoreProps {
+  products: IProduct[]
+}
+
+export interface IProductsByCategory {
+  products: IProduct[]
+  name: string
+  uuid: string
+}
+
+export interface IStoreState {
+  stores: IStore[]
+  selectedStoreId: string | null
+}
+
+export interface ILoginResponse{
+  user: IUser
+  credentials: ICredentials
+}
+
+
+export interface ISelectorProps {
+  items: any[]
+  onSelect: (e: ChangeEvent<HTMLSelectElement>) => unknown
+  defaultSelected: string | undefined
+  idField: string
+  labelField: string
+  [x:string]: any
+}
+
+export interface IProductBody {
+  productId: string,
+  availability: "AVAILABLE" | "UNAVAILABLE"
+}

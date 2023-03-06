@@ -12,10 +12,17 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 :root {
   --color-primary: #f04e4a;
   --color-secondary: #47465f;
   --color-dark: #000;
   --color-light: #fff;
   --color-error: #c42b29;
+  --color-success: #4AF07E;
+  --color-light-background: #ebebeb;
 }

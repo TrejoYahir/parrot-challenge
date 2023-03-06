@@ -1,39 +1,46 @@
-import { useEffect, useState } from 'react'
-import { useGetProductsQuery } from '../../features/store/storeApiSlice'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setSelectedStoreId, setStores } from '../../features/store/storeSlice'
 import { useGetUserQuery } from '../../features/user/userApiSlice'
+import { setUser } from '../../features/user/userSlice'
+import Header from '../../shared/Header'
+import Spinner from '../../shared/Spinner'
+import Store from '../Store'
 import styles from './home.module.css'
 
 const Home = () => {
-
-  const [selectedStoreId, setSelectedStoreId] = useState<string | null>(null)
+  const dispatch = useDispatch()
 
   const {
     data: user,
-    isLoading: userLoading,
-    isSuccess: userSuccess,
+    isLoading,
+    isSuccess,
     isError: userHasError,
     error: userError,
   } = useGetUserQuery()
 
-  const {
-    data: products,
-    isLoading: productsLoading,
-    isSuccess: productsSuccess,
-    isError: productsHasError,
-    error: productsError,
-  } = useGetProductsQuery(selectedStoreId || '', { skip: !selectedStoreId })
+  useEffect(() => {
+    if (isSuccess && user?.stores.length > 0) {
+      dispatch(setStores(user.stores))
+      dispatch(setSelectedStoreId(user.stores[0].uuid))
+    }
+  }, [user, isSuccess])
 
   useEffect(() => {
-    if (userSuccess && user?.stores[0]?.uuid) {
-      setSelectedStoreId(user.stores[0].uuid)
+    if (isSuccess && user) {
+      dispatch(setUser(user))
     }
-  }, [userSuccess, user])
-  
+  }, [user, isSuccess])
+
   return (
-    <section>
-      <div>{user?.username}</div>
-      <div>{ products?.map((product) => <div key={product.uuid}>{ product.name }</div>) }</div>
-    </section>
+    <main>
+      <Header />
+      { 
+        isLoading ?
+          <Spinner color="var(--color-primary)" isLoading={true} size={40} style={{left: 'calc(50% - 20px)'}} /> :
+          <Store />
+      }
+    </main>
   )
 }
 

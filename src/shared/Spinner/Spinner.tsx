@@ -1,7 +1,7 @@
-import { SpinnerProps } from '../Interfaces'
+import { ISpinnerProps } from '../Interfaces'
 import styles from './spinner.module.css'
 
-const Spinner = ({color = 'var(--color-light)', isLoading, size = 18, ...props}: SpinnerProps) => {
+const Spinner = ({color = 'var(--color-light)', isLoading, size = 18, ...props}: ISpinnerProps) => {
   return (
     isLoading ? (
         <span className={styles.spinnerContainer} {...props}>
