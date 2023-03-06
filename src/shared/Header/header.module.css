@@ -16,6 +16,13 @@
   margin: 0 auto;
 }
 
+.headerContent nav {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 1em;
+}
+
 .headerLogo {
   width: 200px;
   max-width: 100%;
@@ -40,6 +47,22 @@
 .headerSelector:hover, .headerSelector:focus, .headerSelector:active {
   background-color: var(--color-dark);
   color: var(--color-light);
+}
+
+.headerLogOut {
+  cursor: pointer;
+  background-color: transparent;
+  border: 0 none;
+}
+
+.headerLogOut:hover {
+  cursor: pointer;
+  background-color: transparent;
+  border: 0 none;
+}
+
+.headerLogOut img {
+  width: 30px;
 }
 
 @media screen and (max-width: 480px) {

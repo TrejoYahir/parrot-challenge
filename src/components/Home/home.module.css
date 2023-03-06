@@ -1,0 +1,28 @@
+.userError .homeBtn {
+  background-color: var(--color-dark);
+  border: 0 none;
+  color: var(--color-light);
+  font-size: 18px;
+  padding: .6em 1em;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: transform 100ms ease-in-out;
+  position: relative;
+  margin: 1em;
+}
+
+.userError h4 {
+  margin-bottom: 0;
+}
+
+.userError .homeBtn:nth-of-type(1) {
+  margin-left: 0;
+}
+
+.userError .homeBtn:hover, .userError .homeBtn:focus{
+  transform: scale(1.07);
+}
+
+.userError .homeBtn:active {
+  transform: scale(1);
+}

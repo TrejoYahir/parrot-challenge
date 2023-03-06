@@ -17,16 +17,22 @@ const authSlice = createSlice({
       localStorage.setItem('refreshToken', refresh)
       return { ...state, accessToken: access, refreshToken: refresh }
     },
+    updateAccessToken: (state, action) => {
+      const { access } = action.payload
+      localStorage.setItem('accessToken', access)
+      return { ...state, accessToken: access }
+    },
     logOut: (state) => {
       localStorage.clear()
-      return { ...state, access: null, refresh: null }
+      return { ...state, accessToken: null, refreshToken: null }
     },
   },
 })
 
-export const { setCredentials, logOut } = authSlice.actions
+export const { setCredentials, logOut, updateAccessToken } = authSlice.actions
 
 export const selectAccessToken = (state: RootState) => state.auth.accessToken
 export const selectRefreshToken = (state: RootState) => state.auth.refreshToken
+export const selectIsLoggedIn = (state: RootState) => (state.auth.accessToken !== null && state.auth.refreshToken !== null)
 
 export default authSlice.reducer

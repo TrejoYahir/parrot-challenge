@@ -1,5 +1,5 @@
 import { apiSlice } from "../../app/api/apiSlice"
-import { IProduct, IProductBody, IProductResponse, IProductsByCategory } from "../../shared/Interfaces"
+import { IProductBody, IProductResponse, IProductsByCategory } from "../../shared/Interfaces"
 import { groupByCategory } from "../../shared/util"
 
 export const storeApiSlice = apiSlice.injectEndpoints({

@@ -1,4 +1,3 @@
-import { ChangeEvent } from "react"
 import { useUpdateProductMutation } from "../../../features/store/storeApiSlice"
 import { ITEM_AVAILABLE, ITEM_UNAVAILABLE } from "../../../shared/constants"
 import { IProduct } from "../../../shared/Interfaces"
@@ -9,14 +8,15 @@ const Product = ({ name, price, imageUrl, availability, description, uuid }: IPr
 
   const [updateProduct, { isLoading }] = useUpdateProductMutation()
 
-  const isAvailable = availability === ITEM_AVAILABLE
+  const isAvailable = availability === ITEM_AVAILABLE // get product availability as boolean
 
   const handleOnChange = async () => {
+    // toggle availability
     const newStatus = isAvailable ? ITEM_UNAVAILABLE : ITEM_AVAILABLE
     try {
       await updateProduct({ productId: uuid, availability: newStatus }).unwrap()
     } catch (error) {
-      console.log(error)
+      console.log("Error updating product", error)
     }
   }
 
@@ -44,7 +44,7 @@ const Product = ({ name, price, imageUrl, availability, description, uuid }: IPr
             id={uuid}
             name={uuid}
             value={uuid}
-            checked={availability === ITEM_AVAILABLE}
+            checked={isAvailable}
             disabled={isLoading}
             onChange={handleOnChange}
           />

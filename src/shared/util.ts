@@ -1,6 +1,6 @@
 import { IProduct, IProductsByCategory } from "./Interfaces";
 
-// Accepts the array and key
+// Accepts product array
 export const groupByCategory = (products: IProduct[]): IProductsByCategory[] => {
   // Return the end result
   return Object.entries(

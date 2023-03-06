@@ -5,9 +5,6 @@ import { setCredentials } from '../../features/auth/authSlice'
 import { useLoginMutation } from '../../features/auth/authApiSlice'
 import Spinner from '../../shared/Spinner'
 import styles from './login.module.css'
-import userApiSlice from '../../features/user/userApiSlice'
-import { setUser } from '../../features/user/userSlice'
-import { setSelectedStoreId, setStores } from '../../features/store/storeSlice'
 
 const Login = () => {
   const userRef = useRef<HTMLInputElement>(null)
@@ -19,12 +16,14 @@ const Login = () => {
   const [login, { isLoading }] = useLoginMutation()
   const dispatch = useDispatch<any>()
 
+  // focus username input on load
   useEffect(() => {
     if (userRef?.current) {
       userRef.current.focus()
     }
   }, [])
 
+  // reset error on input change
   useEffect(() => {
     setError(null)
   }, [username, password])
@@ -37,7 +36,7 @@ const Login = () => {
       dispatch(setCredentials(authData))
       setUsername('')
       setPassword('')
-      navigate('/home')
+      navigate('/')
     } catch (err: any) {
       console.log('login error', err)
       if (err?.status === 401) {
@@ -51,8 +50,8 @@ const Login = () => {
   }
 
   const handleUserInput = (e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)
-
   const handlePasswordInput = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
+  
   return (
     <section className={styles.loginPage}>
       <img src="https://pos.parrotsoftware.io/hubfs/parrot_connect_logo.svg" alt="ParrotConnectLogo" className={styles.loginLogo} />

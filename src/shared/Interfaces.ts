@@ -5,6 +5,11 @@ export interface ICredentials {
   refreshToken: string | null
 }
 
+export interface ICredentialsResponse {
+  access: string | null
+  refresh: string | null
+}
+
 export interface IAuthentication {
   username: string
   password: string
