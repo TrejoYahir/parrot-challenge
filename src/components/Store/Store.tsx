@@ -16,7 +16,7 @@ const Store = () => {
     isError,
   } = useGetProductsQuery(selectedStore?.uuid || '', {
     skip: !selectedStore, // wait until store data is available to fetch products
-    // pollingInterval: 1000,
+    pollingInterval: 1000, // enable polling for products
   })
 
   return (
