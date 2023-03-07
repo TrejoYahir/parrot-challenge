@@ -30,7 +30,6 @@ const Login = () => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
-    console.log('onSubmit called')
 
     try {
       const authData = await login({ username, password }).unwrap()

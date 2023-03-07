@@ -13,6 +13,7 @@ export const storeApiSlice = apiSlice.injectEndpoints({
     }),
     updateProduct: builder.mutation<IProductResponse, IProductBody>({
       invalidatesTags: ['products'],
+      // @ts-ignore
       query: (product: IProductBody) => ({
         url: `/api/v1/products/${product.productId}/availability`,
         method: 'PUT',
