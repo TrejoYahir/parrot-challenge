@@ -30,6 +30,7 @@ const Login = () => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
+    console.log('onSubmit called')
 
     try {
       const authData = await login({ username, password }).unwrap()
@@ -60,7 +61,7 @@ const Login = () => {
         <input type="text" id="username" onChange={handleUserInput} value={username} ref={userRef} required />
         <label htmlFor="password">Contraseña: </label>
         <input type="password" id="password" onChange={handlePasswordInput} value={password} required />
-        { error && <span className={styles.loginFormError}>{error}</span> }
+        { error && <p className={styles.loginFormError}>{error}</p> }
         <button disabled={isLoading}>
           <span>Iniciar sesión</span>
           <Spinner isLoading={isLoading} size={25} color="white" style={{ top:'8px', right:'10px' }} />

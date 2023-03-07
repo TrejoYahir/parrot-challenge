@@ -70,6 +70,7 @@
   color: var(--color-light);
   padding: .6em 1em;
   border-radius: 4px;
+  margin: 0;
   margin-bottom: 1em;
   font-size: .8em;
 }
